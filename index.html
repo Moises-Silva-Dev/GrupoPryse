@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo Pryse | Seguridad Privada</title>
+    <link rel="icon" href="img/Logo_Carga.png">
+    <link rel="stylesheet/css" href="css/style.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header informativo (teléfono | email) -->
+    <div class="info-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <i class="fas fa-phone me-2"></i> Teléfono: +52 55 1234 5678
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                    <i class="fas fa-envelope me-2"></i> Email: contacto@grupopryse.com
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shield-alt me-2"></i> Grupo Pryse
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#nosotros">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ubicacion">Ubicación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Botón de chat flotante -->
+    <button class="float-btn chat-btn" id="chatBtn">
+        <i class="fas fa-robot fa-lg"></i>
+    </button>
+    
+    <!-- Chatbot flotante (oculto por defecto) -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <h5 class="mb-0">Asistente Virtual</h5>
+            <button class="close-chat" id="closeChat">&times;</button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <!-- Mensajes del chatbot aparecerán aquí -->
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+            <button id="sendChat">Enviar</button>
+        </div>
+    </div>
+    
+    <!-- Botón de WhatsApp será creado dinámicamente -->
+    
+    <!-- Contenido principal -->
+    <main>
+        <!-- Sección Hero/Slider -->
+        <section class="hero-section" id="inicio">
+            <!-- Slides de fondo -->
+            <div class="hero-slide active" style="background-image: url('img/Banco_Bienestar.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('img/Imss_Bienestar.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('img/CFE.jpg');"></div>
+            
+            <!-- Overlay -->
+            <div class="hero-overlay"></div>
+            
+            <!-- Contenido -->
+            <div class="container hero-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <h1 class="typewriter-text" id="typewriter">
+                            Empresa Líder en Seguridad <br><span class="highlight" id="highlight-text">para Gobierno</span>
+                        </h1>
+                        <p class="lead mb-4 mb-lg-7">Integración de soluciones de seguridad para proteger lo más importante: su patrimonio, su familia y su tranquilidad.</p>
+                        <a href="#contacto" class="btn btn-light btn-lg px-4 px-lg-5 py-2 py-lg-3" style="background-color: var(--amarillo-destacado); border: none; font-weight: 600; width: fit-content;">
+                            Contáctanos <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nueva Sección: Estadísticas -->
+        <section class="stats-section" id="estadisticas">
+            <div class="container">
+                <!-- Estadísticas originales (ahora en 3 columnas) -->
+                <div class="row justify-content-center mt-5">
+                    <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="359">0</div>
+                            <div class="stat-text">Clientes Satisfechos</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="600">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="15">0</div>
+                            <div class="stat-text">Años de Experiencia</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="700">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="32">0</div>
+                            <div class="stat-text">Estados de Cobertura</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección Nosotros -->
+        <section class="about-section" id="nosotros">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                        <img src="img/principal.png" alt="Equipo de seguridad" class="img-fluid rounded shadow">
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <h2 class="mb-3 mb-lg-4" style="color: var(--azul-rey);">Sobre <span class="highlight">Grupo Pryse</span></h2>
+                        <p class="mb-3 mb-lg-4">Cuenta con presencia operativa en todos los estados de la República, con permisos listos para actuar en cualquier punto. Nos respaldan servicios como el de CAPUFE/FONADIN, lo que garantiza una respuesta inmediata y coordinación directa con la Guardia Nacional ante cualquier incidente.</p>
+                        <p>Nuestro objetivo es brindar tranquilidad a nuestros clientes mediante servicios de seguridad adaptados a sus necesidades específicas, garantizando un proceso global co</p>
+                    </div>
+                </div>
+                
+                <div class="row mt-4 mt-lg-5">
+                    <div class="col-12">
+                        <h3 class="text-center mb-4 mb-lg-5" style="color: var(--azul-rey);">Nuestra Filosofía</h3>
+                        
+                        <div class="tab-buttons justify-content-center" data-aos="fade-up">
+                            <button class="tab-btn active" data-tab="mision">Misión</button>
+                            <button class="tab-btn" data-tab="vision">Visión</button>
+                            <button class="tab-btn" data-tab="valores">Valores</button>
+                            <button class="tab-btn" data-tab="objetivos">Objetivos</button>
+                        </div>
+                        
+                        <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+                            <div id="mision" class="tab-pane active">
+                                <h4 class="mb-3" style="color: var(--azul-rey);">Misión</h4>
+                                <p>Nuestra principal misión es la mejora continua y para ello trabajamos en mantener siempre a un equipo de profesionales que constantemente asisten a cursos y capacitaciones buscando con ello optimizar el recurso humano, logrando amalgamar un verdadero equipo de trabajo comprometido con las políticas y valores de Grupo Pryse.</p>
+                            </div>
+                            <div id="vision" class="tab-pane">
+                                <h4 class="mb-3" style="color: var(--azul-rey);">Visión</h4>
+                                <p>Trascender en el mercado nacional ofreciendo servicios de excelencia que superen las expectativas de nuestros clientes, a través de un equipo comprometido y profesional.</p>
+                            </div>
+                            <div id="valores" class="tab-pane">
+                                <h4 class="mb-3" style="color: var(--azul-rey);">Valores</h4>
+                                <ul class="mb-0">
+                                    <li class="mb-2"><strong>Integridad:</strong> Actuamos con honestidad y transparencia en todas nuestras operaciones.</li>
+                                    <li class="mb-2"><strong>Compromiso:</strong> Dedicación total a la satisfacción y seguridad de nuestros clientes.</li>
+                                    <li class="mb-2"><strong>Innovación:</strong> Implementación constante de tecnologías y metodologías avanzadas.</li>
+                                    <li class="mb-2"><strong>Profesionalismo:</strong> Personal capacitado y certificado para brindar servicios de excelencia.</li>
+                                    <li><strong>Responsabilidad:</strong> Asumimos con seriedad la protección de lo que más importa.</li>
+                                </ul>
+                            </div>
+                            <div id="objetivos" class="tab-pane">
+                                <h4 class="mb-3" style="color: var(--azul-rey);">Objetivos</h4>
+                                <ul class="mb-0">
+                                    <li class="mb-2">Impulsar el desarrollo continuo del talento humano mediante capacitación y valores organizacionales sólidos.</li>
+                                    <li class="mb-2">Mejorar el clima laboral y garantizar condiciones justas para todos los colaboradores.</li>
+                                    <li class="mb-2">Posicionar a Grupo Pryse como referente nacional en calidad de servicio y responsabilidad empresarial.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección Servicios - FONDO AJUSTADO -->
+        <section class="services-section" id="servicios">
+            <!-- FONDO: Cambié la opacidad de 0.1 a 0.15 en el CSS para que se vea mejor -->
+            <div class="service-bg" id="serviceBackground" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');"></div>
+            
+            <div class="container services-content">
+                <h2 class="text-center mb-4 mb-lg-5" style="color: var(--azul-rey);" data-aos="fade-up">Nuestros Servicios</h2>
+                <p class="text-center mb-4 mb-lg-5 lead" data-aos="fade-up" data-aos-delay="100">Oferta un abanico de servicios profesionales en seguridad en todo el territorio nacional.</p>
+                
+                <!-- Carrusel de servicios actualizado -->
+                <div class="row mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="200">
+                    <div class="col-md-6 col-lg-4 mb-3 mb-lg-4">
+                        <div class="service-card" data-service="seguridad-fisica">
+                            <div class="service-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <h4 class="h5">Seguridad Física</h4>
+                            <p class="mb-0">Personal de vigilancia capacitado para protección permanente y presencia disuasiva.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-3 mb-lg-4">
+                        <div class="service-card" data-service="seguridad-monitoreo">
+                            <div class="service-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h4 class="h5">Seguridad de Monitoreo</h4>
+                            <p class="mb-0">Sistemas de videovigilancia 24/7, alarmas y monitoreo inteligente remoto.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-3 mb-lg-4">
+                        <div class="service-card" data-service="seguridad-traslado">
+                            <div class="service-icon">
+                                <i class="fas fa-shuttle-van"></i>
+                            </div>
+                            <h4 class="h5">Seguridad de Traslado</h4>
+                            <p class="mb-0">Protección para traslados de valores, ejecutivos y personal clave.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-3 mb-lg-4">
+                        <div class="service-card" data-service="seguridad-tecnologica">
+                            <div class="service-icon">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <h4 class="h5">Seguridad Tecnológica</h4>
+                            <p class="mb-0">Sistemas de control de acceso, reconocimiento facial y tecnología avanzada.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-3 mb-lg-4">
+                        <div class="service-card" data-service="seguridad-vehicular">
+                            <div class="service-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <h4 class="h5">Seguridad Vehicular</h4>
+                            <p class="mb-0">Protección para flotillas, blindaje vehicular y rastreo satelital.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-3 mb-lg-4">
+                        <div class="service-card" data-service="seguridad-eventos">
+                            <div class="service-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h4 class="h5">Seguridad para Eventos</h4>
+                            <p class="mb-0">Protección integral para eventos públicos, privados y corporativos.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detalle del servicio seleccionado -->
+                <div class="service-detail" id="serviceDetail" data-aos="fade-up">
+                    <h3 id="serviceTitle" style="color: var(--azul-rey);">Selecciona un servicio</h3>
+                    <p id="serviceDescription" class="mb-0">Haz clic en cualquiera de nuestros servicios para ver más detalles.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección Ubicación -->
+        <section class="location-section" id="ubicacion">
+            <div class="container">
+                <h2 class="text-center mb-4 mb-lg-5" style="color: var(--azul-rey);" data-aos="fade-up">Nuestra Ubicación</h2>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                        <div class="info-box">
+                            <h3 class="mb-4" style="color: var(--azul-rey);">Información de Contacto</h3>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div>
+                                    <h5 class="h6 mb-1">Nombre de la Empresa</h5>
+                                    <p class="mb-0">Grupo Pryse Seguridad Privada S.A. de C.V.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="h6 mb-1">Ubicación de la Empresa</h5>
+                                    <p class="mb-0">Ciudad de México, México</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-map-pin"></i>
+                                </div>
+                                <div>
+                                    <h5 class="h6 mb-1">Dirección</h5>
+                                    <p class="mb-0">Av. Paseo de la Reforma 505, Cuauhtémoc, 06500 Ciudad de México, CDMX</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h5 class="h6 mb-1">Teléfono</h5>
+                                    <p class="mb-0">+52 55 1234 5678</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h5 class="h6 mb-1">Email</h5>
+                                    <p class="mb-0">contacto@grupopryse.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <!-- Mapa de Google Maps (iframe de ejemplo) -->
+                        <div class="map-container rounded shadow overflow-hidden" style="height: 100%; min-height: 300px;">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.844213512197!2d-99.16743392404532!3d19.426178740986494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3a2b559c59%3A0x5a0d5c4b6b5c4f4d!2sAv.%20Paseo%20de%20la%20Reforma%20505%2C%20Cuauht%C3%A9moc%2C%2006500%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX%2C%20M%C3%A9xico!5e0!3m2!1ses!2sus!4v1686263038403!5m2!1ses!2sus" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección Contacto -->
+        <section class="contact-section" id="contacto">
+            <div class="container">
+                <h2 class="text-center mb-4 mb-lg-5" style="color: var(--azul-rey);" data-aos="fade-up">Contáctanos</h2>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                        <h3 class="mb-3 mb-lg-4" style="color: var(--azul-rey);">Envíanos un Mensaje</h3>
+                        
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre completo *</label>
+                                <input type="text" class="form-control" id="nombre" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="mensaje" class="form-label">Mensaje *</label>
+                                <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary px-4 py-2" style="background-color: var(--azul-rey); border: none;">Enviar Mensaje</button>
+                        </form>
+                    </div>
+                    
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <h3 class="mb-3 mb-lg-4" style="color: var(--azul-rey);">Preguntas Frecuentes</h3>
+                        
+                        <div class="accordion" id="faqAccordion">
+                            <!-- Las preguntas frecuentes se generarán con JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row mb-4 mb-lg-5">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="h4 mb-3">
+                        <i class="fas fa-shield-alt me-2"></i> Grupo Pryse
+                    </h3>
+                    <p class="mb-3">Empresa líder en soluciones integrales de seguridad, comprometida con la protección de personas, bienes y patrimonio.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5 class="h6">Enlaces Rápidos</h5>
+                        <a href="#inicio">Inicio</a>
+                        <a href="#nosotros">Nosotros</a>
+                        <a href="#servicios">Servicios</a>
+                        <a href="#ubicacion">Ubicación</a>
+                        <a href="#contacto">Contacto</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5 class="h6">Servicios</h5>
+                        <a href="#servicios">Seguridad Física</a>
+                        <a href="#servicios">Seguridad Tecnológica</a>
+                        <a href="#servicios">Seguridad Corporativa</a>
+                        <a href="#servicios">Seguridad Residencial</a>
+                        <a href="#servicios">Seguridad para Eventos</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-links">
+                        <h5 class="h6">Contacto</h5>
+                        <a href="tel:+525512345678"><i class="fas fa-phone me-2"></i> +52 55 1234 5678</a>
+                        <a href="mailto:contacto@grupopryse.com"><i class="fas fa-envelope me-2"></i> contacto@grupopryse.com</a>
+                        <p class="mt-3 mb-0"><i class="fas fa-map-marker-alt me-2"></i> Av. Paseo de la Reforma 505, CDMX</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row pt-4 border-top border-white border-opacity-25">
+                <center>
+                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p class="mb-0">&copy; 2023 Grupo Pryse. Todos los derechos reservados.</p>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>

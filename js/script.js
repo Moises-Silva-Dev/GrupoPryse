@@ -91,25 +91,6 @@ const faqData = [
     }
 ];
 
-// Chatbot preguntas predefinidas
-const chatbotQuestions = [
-    "¿Cuál es su horario de atención?",
-    "¿Ofrecen servicios de seguridad para eventos?",
-    "¿Cómo puedo solicitar un presupuesto?",
-    "¿Tienen servicio de monitoreo 24/7?",
-    "¿Ofrecen seguridad vehicular?",
-    "¿Qué incluye la seguridad tecnológica?"
-];
-
-const chatbotAnswers = {
-    "¿Cuál es su horario de atención?": "Nuestro centro de atención está disponible las 24 horas del día, los 7 días de la semana, para emergencias. El horario administrativo es de lunes a viernes de 9:00 a 18:00 hrs.",
-    "¿Ofrecen servicios de seguridad para eventos?": "Sí, ofrecemos seguridad especializada para eventos públicos y privados, incluyendo control de accesos, vigilancia perimetral, protección VIP y gestión de multitudes.",
-    "¿Cómo puedo solicitar un presupuesto?": "Puede solicitar un presupuesto personalizado contactándonos por teléfono al +52 55 1234 5678, por correo a contacto@grupopryse.com o mediante nuestro formulario de contacto.",
-    "¿Tienen servicio de monitoreo 24/7?": "Sí, contamos con un centro de monitoreo operativo las 24 horas del día, los 365 días del año, con personal capacitado y tecnología de última generación.",
-    "¿Ofrecen seguridad vehicular?": "Sí, ofrecemos seguridad vehicular completa que incluye blindaje, rastreo satelital, conductores capacitados y protección para flotas empresariales.",
-    "¿Qué incluye la seguridad tecnológica?": "Nuestra seguridad tecnológica incluye control de acceso biométrico, reconocimiento facial, sistemas de alarma inteligentes, videovigilancia avanzada y automatización de seguridad."
-};
-
 // Clase WhatsApp Protector
 class WhatsAppProtector {
     constructor() {
@@ -317,126 +298,151 @@ function setupFAQ() {
     });
 }
 
-// ==================== CHATBOT OPTIMIZADO ====================
+// ==================== CHATBOT CORREGIDO Y OPTIMIZADO ====================
+// Chatbot preguntas predefinidas
+const chatbotQuestions = [
+    "¿Cuál es su horario de atención?",
+    "¿Ofrecen servicios de seguridad para eventos?",
+    "¿Cómo puedo solicitar un presupuesto?",
+    "¿Tienen servicio de monitoreo 24/7?",
+    "¿Ofrecen seguridad vehicular?",
+    "¿Qué incluye la seguridad tecnológica?"
+];
 
-// Configurar chatbot optimizado con limpieza al cerrar
+const chatbotAnswers = {
+    "¿Cuál es su horario de atención?": "Nuestro centro de atención está disponible las 24 horas del día, los 7 días de la semana, para emergencias. El horario administrativo es de lunes a viernes de 9:00 a 18:00 hrs.",
+    "¿Ofrecen servicios de seguridad para eventos?": "Sí, ofrecemos seguridad especializada para eventos públicos y privados, incluyendo control de accesos, vigilancia perimetral, protección VIP y gestión de multitudes.",
+    "¿Cómo puedo solicitar un presupuesto?": "Puede solicitar un presupuesto personalizado contactándonos por teléfono al +52 55 1234 5678, por correo a contacto@grupopryse.com o mediante nuestro formulario de contacto.",
+    "¿Tienen servicio de monitoreo 24/7?": "Sí, contamos con un centro de monitoreo operativo las 24 horas del día, los 365 días del año, con personal capacitado y tecnología de última generación.",
+    "¿Ofrecen seguridad vehicular?": "Sí, ofrecemos seguridad vehicular completa que incluye blindaje, rastreo satelital, conductores capacitados y protección para flotas empresariales.",
+    "¿Qué incluye la seguridad tecnológica?": "Nuestra seguridad tecnológica incluye control de acceso biométrico, reconocimiento facial, sistemas de alarma inteligentes, videovigilancia avanzada y automatización de seguridad."
+};
+
 function setupChatbot() {
     const chatBtn = document.getElementById('chatBtn');
     const chatbotContainer = document.getElementById('chatbotContainer');
     const closeChat = document.getElementById('closeChat');
-    let chatbotBody = document.getElementById('chatbotBody');
+    const chatbotBody = document.getElementById('chatbotBody');
     const chatInput = document.getElementById('chatInput');
     const sendChat = document.getElementById('sendChat');
     
+    // Verificación de seguridad: Si no encuentra los elementos, no hace nada para evitar errores
+    if (!chatBtn || !chatbotContainer) {
+        console.error("Error: No se encontraron los elementos del chatbot en el HTML");
+        return;
+    }
+
     let isChatOpen = false;
-    let cleanupTimeout = null;
-    
-    // Función para limpiar completamente el chat
-    function performCleanup() {
-        // Solo limpiar si el chat no está abierto
-        if (!chatbotContainer.classList.contains('active')) {
-            // Método rápido: reemplazar el elemento completo
-            const newChatbotBody = document.createElement('div');
-            newChatbotBody.id = 'chatbotBody';
-            newChatbotBody.className = 'chatbot-body';
-            chatbotBody.parentNode.replaceChild(newChatbotBody, chatbotBody);
+
+    // 1. EVENT LISTENER PARA PREGUNTAS (DEFINIDO SOLO UNA VEZ)
+    // Esto evita que se repitan los mensajes al abrir y cerrar varias veces
+    chatbotBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('chatbot-question')) {
+            const question = e.target.dataset.question;
             
-            // Actualizar la referencia
-            chatbotBody = newChatbotBody;
+            // Eliminar las opciones para que se vea limpio (opcional)
+            const options = document.querySelectorAll('.chatbot-question');
+            options.forEach(opt => opt.style.display = 'none');
+
+            // Mostrar pregunta usuario
+            addMessageToChatbot(question, true);
             
-            // Limpiar input
-            chatInput.value = '';
-            chatInput.blur();
-            
-            console.log('Chat limpiado completamente');
+            // Mostrar respuesta (Retraso corto para naturalidad)
+            showTypingIndicator(); // Opcional: simula escritura
+            setTimeout(() => {
+                const respuesta = chatbotAnswers[question] || "Lo siento, contacta a un asesor para esa información.";
+                addMessageToChatbot(respuesta, false);
+                
+                // Volver a mostrar preguntas frecuentes al final
+                setTimeout(() => showChatbotQuestions(false), 500); 
+            }, 400); // 400ms es suficiente, no uses 1 segundo
         }
-    }
-    
-    // Cleanup con debouncing
-    function debouncedCleanup() {
-        if (cleanupTimeout) {
-            clearTimeout(cleanupTimeout);
-        }
-        
-        cleanupTimeout = setTimeout(() => {
-            performCleanup();
-        }, 500);
-    }
-    
-    // Función para iniciar el chat
+    });
+
+    // Función para abrir/iniciar el chat
     function iniciarChat() {
-        // Mensaje inicial del bot
-        setTimeout(() => {
-            addMessageToChatbot("¡Hola! Soy el asistente virtual de Grupo Pryse. ¿En qué puedo ayudarte hoy?", false);
-        }, 300);
+        // Limpiamos el chat visualmente antes de empezar
+        chatbotBody.innerHTML = '';
         
-        // Preguntas sugeridas después de un momento
+        // Mensaje de bienvenida casi inmediato
+        addMessageToChatbot("¡Hola! Soy el asistente virtual de Grupo Pryse. ¿En qué puedo ayudarte hoy?", false);
+        
+        // Mostrar preguntas enseguida
         setTimeout(() => {
-            showChatbotQuestions();
-        }, 800);
+            showChatbotQuestions(true);
+        }, 300); // Solo 300ms de espera
         
         isChatOpen = true;
     }
-    
-    // Abrir chatbot
+
+    // Evento Abrir Chat
     chatBtn.addEventListener('click', () => {
         chatbotContainer.classList.add('active');
+        // Enfocar el input
+        setTimeout(() => chatInput.focus(), 100);
         
         if (!isChatOpen) {
             iniciarChat();
         }
-        
-        // Enfocar el input
-        setTimeout(() => {
-            chatInput.focus();
-        }, 100);
     });
-    
-    // Cerrar chatbot
-    closeChat.addEventListener('click', () => {
+
+    // Evento Cerrar Chat
+    closeChat.addEventListener('click', cerrarChat);
+
+    // Cerrar al hacer clic fuera
+    document.addEventListener('click', (e) => {
+        if (chatbotContainer.classList.contains('active') && 
+            !chatbotContainer.contains(e.target) && 
+            e.target !== chatBtn) {
+            cerrarChat();
+        }
+    });
+
+    function cerrarChat() {
         chatbotContainer.classList.remove('active');
-        isChatOpen = false;
-        debouncedCleanup();
-    });
-    
-    // Mostrar preguntas predefinidas
-    function showChatbotQuestions() {
-        addMessageToChatbot("Puedes seleccionar una de estas preguntas frecuentes o escribir tu propia pregunta:", false);
+        // Esperamos a que termine la animación de cierre CSS (300ms) para limpiar
+        setTimeout(() => {
+            isChatOpen = false;
+            chatbotBody.innerHTML = ''; 
+        }, 300);
+    }
+
+    // Mostrar botones de preguntas
+    function showChatbotQuestions(withMessage) {
+        if(withMessage) {
+            addMessageToChatbot("Selecciona una opción o escribe tu duda:", false);
+        }
         
-        // Usar event delegation para mejor rendimiento
+        const questionsContainer = document.createElement('div');
+        questionsContainer.className = 'questions-container'; // Clase para control CSS si hiciera falta
+        
         chatbotQuestions.forEach(question => {
             const questionElement = document.createElement('div');
             questionElement.className = 'chatbot-question';
             questionElement.textContent = question;
             questionElement.dataset.question = question;
-            
-            chatbotBody.appendChild(questionElement);
+            // Estilo inline para asegurar la animación
+            questionElement.style.animation = 'fadeIn 0.3s ease';
+            questionElement.style.cursor = 'pointer';
+            questionsContainer.appendChild(questionElement);
         });
-        
-        // Event delegation para todas las preguntas
-        chatbotBody.addEventListener('click', (e) => {
-            if (e.target.classList.contains('chatbot-question')) {
-                const question = e.target.dataset.question;
-                addMessageToChatbot(question, true);
-                setTimeout(() => {
-                    addMessageToChatbot(chatbotAnswers[question] || "Lo siento, no tengo información sobre esa pregunta en este momento. Por favor, contacte a nuestro equipo.", false);
-                }, 500);
-            }
-        });
+
+        chatbotBody.appendChild(questionsContainer);
+        scrollToBottom();
     }
-    
-    // Enviar mensaje
+
+    // Lógica de envío manual (Input de texto)
     function sendMessage() {
         const message = chatInput.value.trim();
         if (message) {
             addMessageToChatbot(message, true);
             chatInput.value = '';
             
-            // Respuesta automatizada
+            // Respuesta automática genérica
             setTimeout(() => {
-                let response = "Gracias por tu pregunta. Para obtener una respuesta más precisa y personalizada, te recomiendo contactar directamente a nuestro equipo de atención al cliente. ¿Hay algo más en lo que pueda ayudarte?";
-                
+                let response = "Gracias. Para una atención personalizada, por favor llama al +52 777 319 2422.";
                 const lowerMessage = message.toLowerCase();
+                
                 if (lowerMessage.includes('precio') || lowerMessage.includes('costo') || lowerMessage.includes('presupuesto') || lowerMessage.includes('cotización')) {
                     response = "Para obtener un presupuesto personalizado, por favor contacte a nuestro equipo de ventas al teléfono +52 55 1234 5678 o envíe un correo a ventas@grupopryse.com. ¿Necesitas ayuda con algo más?";
                 } else if (lowerMessage.includes('horario') || lowerMessage.includes('atención') || lowerMessage.includes('hora')) {
@@ -450,39 +456,38 @@ function setupChatbot() {
                 }
                 
                 addMessageToChatbot(response, false);
-            }, 800);
+                
+                // Si no hay preguntas visibles, mostrarlas de nuevo
+                if (!chatbotBody.querySelector('.chatbot-question[style*="display: block"]')) {
+                    setTimeout(() => showChatbotQuestions(false), 1000);
+                }
+            }, 600);
         }
     }
-    
+
     sendChat.addEventListener('click', sendMessage);
-    
     chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
+        if (e.key === 'Enter') sendMessage();
     });
-    
-    // Añadir mensaje al chat
+
+    // Utilería: Agregar mensaje al DOM
     function addMessageToChatbot(text, isUser) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
         messageDiv.textContent = text;
-        
         chatbotBody.appendChild(messageDiv);
+        scrollToBottom();
+    }
+
+    // Utilería: Scroll al final
+    function scrollToBottom() {
         chatbotBody.scrollTop = chatbotBody.scrollHeight;
     }
-    
-    // Cerrar chatbot al hacer clic fuera
-    document.addEventListener('click', (e) => {
-        if (chatbotContainer.classList.contains('active') && 
-            !chatbotContainer.contains(e.target) && 
-            e.target !== chatBtn) {
-            
-            chatbotContainer.classList.remove('active');
-            isChatOpen = false;
-            debouncedCleanup();
-        }
-    });
+
+    // Utilería (Opcional): Indicador de escribiendo...
+    function showTypingIndicator() {
+        // Puedes agregar lógica aquí si deseas mostrar "..."
+    }
 }
 
 // ==================== NAVBAR CON EFECTOS DE SCROLL ====================
@@ -697,12 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar WhatsApp Protector
     const whatsAppProtector = new WhatsAppProtector();
     whatsAppProtector.inicializar();
-});
 
-// ==================== EVENTOS ADICIONALES ====================
-
-// Recargar la página cuando se haga clic en el logo para resetear todo
-document.addEventListener('DOMContentLoaded', () => {
     const logo = document.querySelector('.navbar-brand');
     if (logo) {
         logo.addEventListener('click', (e) => {

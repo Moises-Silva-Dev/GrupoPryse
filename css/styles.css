@@ -165,7 +165,7 @@ main {
 /* Botones flotantes */
 .float-btn {
     position: fixed;
-    z-index: 1000;
+    z-index: 2000 !important;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -185,7 +185,7 @@ main {
 /* Botón de WhatsApp */
 .float-wa {
     position: fixed;
-    z-index: 1000;
+    z-index: 2000 !important;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -225,7 +225,7 @@ main {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
+    z-index: 2001 !important;
     display: flex;
     flex-direction: column;
     transform: translateY(20px);

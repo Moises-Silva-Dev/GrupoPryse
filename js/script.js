@@ -5,299 +5,6 @@ AOS.init({
     offset: 100
 });
 
-// Variables globales
-let currentSlide = 0;
-let typewriterInterval;
-let highlightInterval;
-const slides = document.querySelectorAll('.hero-slide');
-const typewriterElement = document.getElementById('typewriter');
-const highlightElement = document.getElementById('highlight-text');
-const serviceCards = document.querySelectorAll('.service-card');
-const serviceDetail = document.getElementById('serviceDetail');
-const serviceTitle = document.getElementById('serviceTitle');
-const serviceDescription = document.getElementById('serviceDescription');
-const serviceBackground = document.getElementById('serviceBackground');
-
-// Textos para el efecto de máquina de escribir
-const textVariations = [
-    "para Gobierno",
-    "Empresarial",
-    "Residencial",
-    "para Eventos",
-    "Industrial",
-    "en Centros Comerciales",
-    "de Salud"
-];
-
-// Datos de los servicios
-const servicesData = {
-    "seguridad-fisica": {
-        title: "Seguridad Física",
-        description: "Nuestro servicio de seguridad física incluye personal de vigilancia altamente capacitado, rondines de inspección, control de accesos y presencia disuasiva en puntos estratégicos. Contamos con guardias certificados en primeros auxilios, manejo de situaciones de crisis y protocolos de seguridad específicos para cada tipo de cliente. Ofrecemos seguridad perimetral, control de acceso a instalaciones y vigilancia 24/7.",
-        bgImage: "img/Sector_Salud.jpg"
-    },
-    "seguridad-monitoreo": {
-        title: "Seguridad de Monitoreo",
-        description: "Sistemas de videovigilancia de última generación con monitoreo 24/7, alarmas de intrusión, sensores de movimiento y respuesta inmediata ante incidentes. Contamos con un centro de monitoreo propio con tecnología de punta y personal capacitado para detectar y responder a cualquier anomalía. Implementamos cámaras IP de alta resolución, grabación en la nube y alertas en tiempo real.",
-        bgImage: "img/monitoreo.jpg"
-    },
-    "seguridad-traslado": {
-        title: "Seguridad de Traslado",
-        description: "Protección especializada para el traslado de valores, ejecutivos, personal clave y mercancías de alto valor. Contamos con vehículos blindados, escoltas capacitados y rutas seguras. Nuestro servicio incluye análisis de riesgos, planificación de rutas, comunicación encriptada y respuesta rápida ante emergencias. Ideal para bancos, empresas de valores y ejecutivos de alto perfil.",
-        bgImage: "img/traslado.jpg"
-    },
-    "seguridad-tecnologica": {
-        title: "Seguridad Tecnológica",
-        description: "Soluciones tecnológicas avanzadas que incluyen control de acceso biométrico, reconocimiento facial, sistemas de alarma inteligentes, detección de intrusión perimetral y automatización de seguridad. Integramos las últimas tecnologías como IA para análisis de comportamiento, sensores térmicos y sistemas de respuesta automatizada para máxima protección.",
-        bgImage: "img/tecnologico.jpg"
-    },
-    "seguridad-vehicular": {
-        title: "Seguridad Vehicular",
-        description: "Protección integral para flotas vehiculares que incluye blindaje, rastreo satelital GPS, sistemas de alerta de emergencia, conductores capacitados y mantenimiento preventivo. Ofrecemos soluciones para empresas con flotas de transporte, ejecutivos que requieren movilidad segura y protección para vehículos de alto valor.",
-        bgImage: "img/Capufe.jpg"
-    },
-    "seguridad-eventos": {
-        title: "Seguridad para Eventos",
-        description: "Protección integral para todo tipo de eventos: corporativos, sociales, culturales y deportivos. Incluye control de accesos, revisión de invitados, manejo de multitudes, seguridad perimetral, protección VIP y respuesta ante emergencias. Diseñamos planes de seguridad personalizados para cada evento considerando el perfil de los asistentes y las características del lugar.",
-        bgImage: "img/Sat.jpg"
-    }
-};
-
-// Preguntas frecuentes
-const faqData = [
-    {
-        question: "¿Cuándo se fundó Grupo Pryse?",
-        answer: "Grupo Pryse fue fundado en el año 2008, acumulando más de 15 años de experiencia en el sector de seguridad privada."
-    },
-    {
-        question: "¿Qué servicios ofrecen?",
-        answer: "Ofrecemos seguridad física, seguridad tecnológica, seguridad corporativa, seguridad residencial, seguridad para eventos, consultoría en seguridad y monitoreo 24/7."
-    },
-    {
-        question: "¿Cuál es el valor agregado?",
-        answer: "Nuestro valor agregado es la integración de soluciones personalizadas que combinan tecnología de punta con personal altamente capacitado y procesos certificados internacionalmente."
-    },
-    {
-        question: "¿A qué sectores van sus servicios?",
-        answer: "Atendemos a los sectores gubernamental, empresarial, industrial, residencial, comercial, de salud, educativo y de eventos especiales."
-    },
-    {
-        question: "¿Qué garantía ofrecen a sus clientes?",
-        answer: "Garantizamos la efectividad de nuestros servicios mediante contratos con cláusulas de cumplimiento, seguros de responsabilidad civil y certificaciones internacionales de calidad."
-    },
-    {
-        question: "¿Cuál es la promesa de servicio?",
-        answer: "Nuestra promesa es brindar tranquilidad absoluta mediante la protección eficaz de personas, bienes y patrimonio, con respuesta inmediata ante cualquier eventualidad."
-    }
-];
-
-// Clase WhatsApp Protector
-class WhatsAppProtector {
-    constructor() {
-        this.numeroProtegido = this.generarNumero();
-        this.inicializado = false;
-    }
-
-    // Generar el número de forma segura
-    generarNumero() {
-        // Dividir el número en partes y combinarlo
-        const partes = [
-            String.fromCharCode(53, 50), // "52"
-            String.fromCharCode(55, 55, 55), // "777"
-            String.fromCharCode(52, 52, 52), // "444"
-            String.fromCharCode(57, 49, 48, 55) // "9107"
-        ];
-        return partes.join('');
-    }
-
-    // Crear el botón de WhatsApp
-    crearBoton() {
-        const boton = document.createElement('a');
-        boton.id = 'WhatsAppBtn';
-        boton.className = 'float-wa whatsapp-btn';
-        boton.target = '_blank';
-        boton.rel = 'noopener noreferrer';
-        
-        // Solo asignar el enlace cuando sea necesario
-        boton.addEventListener('click', (e) => {
-            if (!boton.href) {
-                boton.href = `https://wa.me/${this.numeroProtegido}?text=Hola,%20me%20gustaría%20solicitar%20más%20información.`;
-            }
-        });
-        boton.innerHTML = '<i class="fab fa-whatsapp fa-lg"></i>';
-        return boton;
-    }
-
-    // Inicializar la protección
-    inicializar() {
-        if (this.inicializado) return;
-        
-        // Verificar si ya existe el botón
-        let botonExistente = document.getElementById('WhatsAppBtn');
-        
-        if (botonExistente) {
-            // Configurar el enlace existente
-            botonExistente.addEventListener('click', (e) => {
-                if (!botonExistente.href.includes('wa.me')) {
-                    botonExistente.href = `https://wa.me/${this.numeroProtegido}?text=Hola,%20me%20gustaría%20solicitar%20más%20información.`;
-                }
-            });
-        } else {
-            // Crear nuevo botón
-            const nuevoBoton = this.crearBoton();
-            document.body.appendChild(nuevoBoton);
-        }
-        this.inicializado = true;
-    }
-}
-
-// ==================== FUNCIONES DEL SLIDER HERO ====================
-
-// Funciones del slider hero
-function showSlide(index) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    slides[index].classList.add('active');
-}
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-}
-
-// Efecto de máquina de escribir para el texto destacado
-function typeWriterEffect(text, element, speed = 100) {
-    let i = 0;
-    element.textContent = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
-
-// Cambiar el texto destacado
-let currentTextIndex = 0;
-function changeHighlightedText() {
-    const text = textVariations[currentTextIndex];
-    typeWriterEffect(text, highlightElement, 70);
-    
-    currentTextIndex = (currentTextIndex + 1) % textVariations.length;
-}
-
-// ==================== FUNCIÓN DE CONTADORES ====================
-
-// Animación de contadores
-function animateCounters() {
-    const counters = document.querySelectorAll('.stat-number');
-    const speed = 200; // Velocidad de animación
-    
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-count'));
-        const increment = target / speed;
-        let current = 0;
-        
-        // Asegurarse de que el contador esté en 0 al inicio
-        counter.textContent = "0";
-        
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                counter.textContent = Math.ceil(current);
-                setTimeout(updateCounter, 10);
-            } else {
-                counter.textContent = target;
-            }
-        };
-        
-        updateCounter();
-    });
-}
-
-// ==================== FUNCIONES DE SERVICIOS ====================
-
-// Mostrar detalles del servicio
-function showServiceDetails(serviceId) {
-    const service = servicesData[serviceId];
-    if (!service) return;
-    
-    // Actualizar contenido
-    serviceTitle.textContent = service.title;
-    serviceDescription.textContent = service.description;
-    
-    // Cambiar imagen de fondo
-    serviceBackground.style.backgroundImage = `url('${service.bgImage}')`;
-    
-    // Mostrar detalle
-    serviceDetail.classList.add('active');
-    
-    // Actualizar tarjeta activa
-    serviceCards.forEach(card => {
-        card.classList.remove('active');
-        if (card.getAttribute('data-service') === serviceId) {
-            card.classList.add('active');
-        }
-    });
-}
-
-// ==================== FUNCIONES DE PESTAÑAS ====================
-
-// Cambiar pestañas (Misión, Visión, Valores, Objetivos)
-function setupTabs() {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tabId = btn.getAttribute('data-tab');
-            
-            // Actualizar botones activos
-            tabBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // Actualizar contenido activo
-            tabPanes.forEach(pane => {
-                pane.classList.remove('active');
-                if (pane.id === tabId) {
-                    pane.classList.add('active');
-                }
-            });
-        });
-    });
-}
-
-// ==================== FUNCIONES DE FAQ ====================
-
-// Configurar preguntas frecuentes
-function setupFAQ() {
-    const faqContainer = document.getElementById('faqAccordion');
-    
-    faqData.forEach((faq, index) => {
-        const faqId = `faq${index}`;
-        const faqItem = document.createElement('div');
-        faqItem.className = 'accordion-item';
-        
-        faqItem.innerHTML = `
-            <h2 class="accordion-header" id="heading${index}">
-                <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#${faqId}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="${faqId}">
-                    ${faq.question}
-                </button>
-            </h2>
-            <div id="${faqId}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" aria-labelledby="heading${index}" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                    ${faq.answer}
-                </div>
-            </div>
-        `;
-        
-        faqContainer.appendChild(faqItem);
-    });
-}
-
 // ==================== CHATBOT CORREGIDO Y OPTIMIZADO ====================
 // Chatbot preguntas predefinidas
 const chatbotQuestions = [
@@ -620,10 +327,306 @@ function setupSmoothNavigation() {
     });
 }
 
+// Variables globales
+let currentSlide = 0;
+let typewriterInterval;
+let highlightInterval;
+const slides = document.querySelectorAll('.hero-slide');
+const typewriterElement = document.getElementById('typewriter');
+const highlightElement = document.getElementById('highlight-text');
+const serviceCards = document.querySelectorAll('.service-card');
+const serviceDetail = document.getElementById('serviceDetail');
+const serviceTitle = document.getElementById('serviceTitle');
+const serviceDescription = document.getElementById('serviceDescription');
+const serviceBackground = document.getElementById('serviceBackground');
+
+// Textos para el efecto de máquina de escribir
+const textVariations = [
+    "para Gobierno",
+    "Empresarial",
+    "Residencial",
+    "para Eventos",
+    "Industrial",
+    "en Centros Comerciales",
+    "de Salud"
+];
+
+// Datos de los servicios
+const servicesData = {
+    "seguridad-fisica": {
+        title: "Seguridad Física",
+        description: "Nuestro servicio de seguridad física incluye personal de vigilancia altamente capacitado, rondines de inspección, control de accesos y presencia disuasiva en puntos estratégicos. Contamos con guardias certificados en primeros auxilios, manejo de situaciones de crisis y protocolos de seguridad específicos para cada tipo de cliente. Ofrecemos seguridad perimetral, control de acceso a instalaciones y vigilancia 24/7.",
+        bgImage: "img/Sector_Salud.jpg"
+    },
+    "seguridad-monitoreo": {
+        title: "Seguridad de Monitoreo",
+        description: "Sistemas de videovigilancia de última generación con monitoreo 24/7, alarmas de intrusión, sensores de movimiento y respuesta inmediata ante incidentes. Contamos con un centro de monitoreo propio con tecnología de punta y personal capacitado para detectar y responder a cualquier anomalía. Implementamos cámaras IP de alta resolución, grabación en la nube y alertas en tiempo real.",
+        bgImage: "img/monitoreo.jpg"
+    },
+    "seguridad-traslado": {
+        title: "Seguridad de Traslado",
+        description: "Protección especializada para el traslado de valores, ejecutivos, personal clave y mercancías de alto valor. Contamos con vehículos blindados, escoltas capacitados y rutas seguras. Nuestro servicio incluye análisis de riesgos, planificación de rutas, comunicación encriptada y respuesta rápida ante emergencias. Ideal para bancos, empresas de valores y ejecutivos de alto perfil.",
+        bgImage: "img/traslado.jpg"
+    },
+    "seguridad-tecnologica": {
+        title: "Seguridad Tecnológica",
+        description: "Soluciones tecnológicas avanzadas que incluyen control de acceso biométrico, reconocimiento facial, sistemas de alarma inteligentes, detección de intrusión perimetral y automatización de seguridad. Integramos las últimas tecnologías como IA para análisis de comportamiento, sensores térmicos y sistemas de respuesta automatizada para máxima protección.",
+        bgImage: "img/tecnologico.jpg"
+    },
+    "seguridad-vehicular": {
+        title: "Seguridad Vehicular",
+        description: "Protección integral para flotas vehiculares que incluye blindaje, rastreo satelital GPS, sistemas de alerta de emergencia, conductores capacitados y mantenimiento preventivo. Ofrecemos soluciones para empresas con flotas de transporte, ejecutivos que requieren movilidad segura y protección para vehículos de alto valor.",
+        bgImage: "img/Capufe.jpg"
+    },
+    "seguridad-eventos": {
+        title: "Seguridad para Eventos",
+        description: "Protección integral para todo tipo de eventos: corporativos, sociales, culturales y deportivos. Incluye control de accesos, revisión de invitados, manejo de multitudes, seguridad perimetral, protección VIP y respuesta ante emergencias. Diseñamos planes de seguridad personalizados para cada evento considerando el perfil de los asistentes y las características del lugar.",
+        bgImage: "img/Sat.jpg"
+    }
+};
+
+// Preguntas frecuentes
+const faqData = [
+    {
+        question: "¿Cuándo se fundó Grupo Pryse?",
+        answer: "Grupo Pryse fue fundado en el año 2008, acumulando más de 15 años de experiencia en el sector de seguridad privada."
+    },
+    {
+        question: "¿Qué servicios ofrecen?",
+        answer: "Ofrecemos seguridad física, seguridad tecnológica, seguridad corporativa, seguridad residencial, seguridad para eventos, consultoría en seguridad y monitoreo 24/7."
+    },
+    {
+        question: "¿Cuál es el valor agregado?",
+        answer: "Nuestro valor agregado es la integración de soluciones personalizadas que combinan tecnología de punta con personal altamente capacitado y procesos certificados internacionalmente."
+    },
+    {
+        question: "¿A qué sectores van sus servicios?",
+        answer: "Atendemos a los sectores gubernamental, empresarial, industrial, residencial, comercial, de salud, educativo y de eventos especiales."
+    },
+    {
+        question: "¿Qué garantía ofrecen a sus clientes?",
+        answer: "Garantizamos la efectividad de nuestros servicios mediante contratos con cláusulas de cumplimiento, seguros de responsabilidad civil y certificaciones internacionales de calidad."
+    },
+    {
+        question: "¿Cuál es la promesa de servicio?",
+        answer: "Nuestra promesa es brindar tranquilidad absoluta mediante la protección eficaz de personas, bienes y patrimonio, con respuesta inmediata ante cualquier eventualidad."
+    }
+];
+
+// Clase WhatsApp Protector
+class WhatsAppProtector {
+    constructor() {
+        this.numeroProtegido = this.generarNumero();
+        this.inicializado = false;
+    }
+
+    // Generar el número de forma segura
+    generarNumero() {
+        // Dividir el número en partes y combinarlo
+        const partes = [
+            String.fromCharCode(53, 50), // "52"
+            String.fromCharCode(55, 55, 55), // "777"
+            String.fromCharCode(52, 52, 52), // "444"
+            String.fromCharCode(57, 49, 48, 55) // "9107"
+        ];
+        return partes.join('');
+    }
+
+    // Crear el botón de WhatsApp
+    crearBoton() {
+        const boton = document.createElement('a');
+        boton.id = 'WhatsAppBtn';
+        boton.className = 'float-wa whatsapp-btn';
+        boton.target = '_blank';
+        boton.rel = 'noopener noreferrer';
+        
+        // Solo asignar el enlace cuando sea necesario
+        boton.addEventListener('click', (e) => {
+            if (!boton.href) {
+                boton.href = `https://wa.me/${this.numeroProtegido}?text=Hola,%20me%20gustaría%20solicitar%20más%20información.`;
+            }
+        });
+        boton.innerHTML = '<i class="fab fa-whatsapp fa-lg"></i>';
+        return boton;
+    }
+
+    // Inicializar la protección
+    inicializar() {
+        if (this.inicializado) return;
+        
+        // Verificar si ya existe el botón
+        let botonExistente = document.getElementById('WhatsAppBtn');
+        
+        if (botonExistente) {
+            // Configurar el enlace existente
+            botonExistente.addEventListener('click', (e) => {
+                if (!botonExistente.href.includes('wa.me')) {
+                    botonExistente.href = `https://wa.me/${this.numeroProtegido}?text=Hola,%20me%20gustaría%20solicitar%20más%20información.`;
+                }
+            });
+        } else {
+            // Crear nuevo botón
+            const nuevoBoton = this.crearBoton();
+            document.body.appendChild(nuevoBoton);
+        }
+        this.inicializado = true;
+    }
+}
+
+// ==================== FUNCIONES DEL SLIDER HERO ====================
+
+// Funciones del slider hero
+function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+// Efecto de máquina de escribir para el texto destacado
+function typeWriterEffect(text, element, speed = 100) {
+    let i = 0;
+    element.textContent = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    
+    type();
+}
+
+// Cambiar el texto destacado
+let currentTextIndex = 0;
+function changeHighlightedText() {
+    const text = textVariations[currentTextIndex];
+    typeWriterEffect(text, highlightElement, 70);
+    
+    currentTextIndex = (currentTextIndex + 1) % textVariations.length;
+}
+
+// ==================== FUNCIÓN DE CONTADORES ====================
+
+// Animación de contadores
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    const speed = 200; // Velocidad de animación
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const increment = target / speed;
+        let current = 0;
+        
+        // Asegurarse de que el contador esté en 0 al inicio
+        counter.textContent = "0";
+        
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                counter.textContent = Math.ceil(current);
+                setTimeout(updateCounter, 10);
+            } else {
+                counter.textContent = target;
+            }
+        };
+        
+        updateCounter();
+    });
+}
+
+// ==================== FUNCIONES DE SERVICIOS ====================
+
+// Mostrar detalles del servicio
+function showServiceDetails(serviceId) {
+    const service = servicesData[serviceId];
+    if (!service) return;
+    
+    // Actualizar contenido
+    serviceTitle.textContent = service.title;
+    serviceDescription.textContent = service.description;
+    
+    // Cambiar imagen de fondo
+    serviceBackground.style.backgroundImage = `url('${service.bgImage}')`;
+    
+    // Mostrar detalle
+    serviceDetail.classList.add('active');
+    
+    // Actualizar tarjeta activa
+    serviceCards.forEach(card => {
+        card.classList.remove('active');
+        if (card.getAttribute('data-service') === serviceId) {
+            card.classList.add('active');
+        }
+    });
+}
+
+// ==================== FUNCIONES DE PESTAÑAS ====================
+
+// Cambiar pestañas (Misión, Visión, Valores, Objetivos)
+function setupTabs() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            
+            // Actualizar botones activos
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Actualizar contenido activo
+            tabPanes.forEach(pane => {
+                pane.classList.remove('active');
+                if (pane.id === tabId) {
+                    pane.classList.add('active');
+                }
+            });
+        });
+    });
+}
+
+// ==================== FUNCIONES DE FAQ ====================
+
+// Configurar preguntas frecuentes
+function setupFAQ() {
+    const faqContainer = document.getElementById('faqAccordion');
+    
+    faqData.forEach((faq, index) => {
+        const faqId = `faq${index}`;
+        const faqItem = document.createElement('div');
+        faqItem.className = 'accordion-item';
+        
+        faqItem.innerHTML = `
+            <h2 class="accordion-header" id="heading${index}">
+                <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#${faqId}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="${faqId}">
+                    ${faq.question}
+                </button>
+            </h2>
+            <div id="${faqId}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" aria-labelledby="heading${index}" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    ${faq.answer}
+                </div>
+            </div>
+        `;
+        
+        faqContainer.appendChild(faqItem);
+    });
+}
+
 // ==================== INICIALIZACIÓN PRINCIPAL ====================
 
 // Inicializar todo cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', () => {
+    // Configurar chatbot
+    setupChatbot();
+
     // Iniciar slider
     setInterval(nextSlide, 5000);
     
@@ -665,9 +668,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Configurar preguntas frecuentes
     setupFAQ();
-    
-    // Configurar chatbot
-    setupChatbot();
     
     // Configurar efectos de scroll
     setupScrollEffects();

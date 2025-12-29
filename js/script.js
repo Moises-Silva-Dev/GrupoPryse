@@ -344,11 +344,11 @@ const serviceBackground = document.getElementById('serviceBackground');
 const textVariations = [
     "para Gobierno",
     "Empresarial",
-    "Residencial",
-    "para Eventos",
+    "Instituciones Escolares",
+    "en Aeropuerto",
     "Industrial",
-    "en Centros Comerciales",
-    "de Salud"
+    "de Salud", 
+    "CCTV"
 ];
 
 // Datos de los servicios
